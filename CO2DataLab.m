@@ -30,11 +30,21 @@ SST = NaN*zeros(length(longrid),length(latgrid),length(monthgrid));%<--
 %% 2b. Pull out the seawater pCO2 (PCO2_SW) and sea surface temperature (SST)
 %data and reshape it into your new 3-dimensional arrays
 
+%ind = NaN*zeros(length(CO2data.PCO2_SW),1);
 
 for i= 1:length(latgrid)
     for j= 1:length(longrid)
         for k= 1:length(monthgrid)
-            ind = find(CO2data.LAT==latgrid(i)&CO2data.LON==longrid(j)&CO2data.MONTH==monthgrid(k))
+            %for z=1:length(CO2data.PCO2_SW)
+            ind = find(CO2data.LAT==latgrid(i)&CO2data.LON==longrid(j)&CO2data.MONTH==monthgrid(k));
+            data=CO2data.PCO2_SW(ind);
+            if isnumeric(ind)==1
+                PCO2_SW(i,j,k)= 3;
+            else
+                PCO2_SW(i,j,k)=NaN;
+                end
+            %end
+           % PCO2_SW(i,j,k)=CO2data.PCO2_SW(ind)
         end
     end
 end%<--
