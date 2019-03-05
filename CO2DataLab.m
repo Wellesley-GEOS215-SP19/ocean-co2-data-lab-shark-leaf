@@ -99,7 +99,7 @@ title('Annual Mean pCO2 (µatm)')
 %selected data source because we noticed that it was highly cited in online
 %material targeted towards general audiences
 
-refyear = 365
+refyear = 365;
 difference= PCO2_mean - refyear;
 
 figure(5); clf
@@ -113,13 +113,24 @@ title('Difference between Annual Mean pCO2 and 2000 Atmospheric pCO2 (µatm)')
 
 %% 6. Calculate relative roles of temperature and of biology/physics in controlling seasonal cycle
 %<--
-
+SST_mean = mean(SST,3); %b/c on the third dimension
+PCO2_BP = PCO2_SW.*exp(0.0423.*(repmat(SST_mean,1,1,12)-SST));
+PCO2_T = PCO2_mean.*exp(0.0423.*(SST-repmat(SST_mean,1,1,12)));
 
 %% 7. Pull out and plot the seasonal cycle data from stations of interest
 %Do for BATS, Station P, and Ross Sea (note that Ross Sea is along a
 %section of 14 degrees longitude - I picked the middle point)
 
 %<--
+figure(6); clf
+worldmap world
+%contourfm(latgrid, longrid, difference','linecolor','none');
+scatterm(32.833,295.833,100)
+scatterm(-76.83,
+cmocean('balance', 'pivot', 0)
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('location')
 
 %% 8. Reproduce your own versions of the maps in figures 7-9 in Takahashi et al. 2002
 % But please use better colormaps!!!
