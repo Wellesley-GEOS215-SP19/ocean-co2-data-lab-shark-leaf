@@ -30,25 +30,11 @@ SST = NaN*zeros(length(longrid),length(latgrid),length(monthgrid));%<--
 %% 2b. Pull out the seawater pCO2 (PCO2_SW) and sea surface temperature (SST)
 %data and reshape it into your new 3-dimensional arrays
 
-index = NaN*zeros(length(CO2data.PCO2_SW),1);
-%data = NaN*zeros(length(CO2data.PCO2_SW),1);
-
-for i= 1:length(longrid)
-    for j= 1:length(latgrid)
-        for k= 1:length(monthgrid)
-            %for z=1:length(CO2data.PCO2_SW)
-            ind = find(CO2data.LON==longrid(i)&CO2data.LAT==latgrid(j)&CO2data.MONTH==monthgrid(k));
-            data(i,1)=CO2data.PCO2_SW(ind);
-            %if isnan(ind)==1
-               % PCO2_SW(i,j,k)= NaN;
-            %else
-             %   PCO2_SW(i,j,k)=data;
-            %end
-            disp(data)
-            %end
-           % PCO2_SW(i,j,k)=CO2data.PCO2_SW(ind)
-        end
-    end
+for i= 1:length(CO2data.LON)
+           latindex = find(latgrid==CO2data.LAT(i));
+           lonindex = find(longrid==CO2data.LON(i));
+           PCO2_SW(lonindex,latindex,CO2data.MONTH(i))=CO2data.PCO2_SW(i);
+           SST(lonindex,latindex,CO2data.MONTH(i))=CO2data.SST(i);
 end%<--
 
 
@@ -78,15 +64,56 @@ title('January Sea Surface Temperature (^oC)')
 %interval, color of the contour lines, labels, etc.
 
 %<--
+figure(2); clf
+worldmap world
+contourfm(latgrid, longrid, SST(:,:,2)','linecolor','none');
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('February Sea Surface Temperature (^oC)')
+
+figure(3); clf
+worldmap world
+contourfm(latgrid, longrid, PCO2_SW(:,:,1)','linecolor','none');
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('January pCO2 (µatm)')
 
 %% 4. Calculate and plot a global map of annual mean pCO2
 %<--
 
+PCO2_mean = mean(PCO2_SW,3);
+
+figure(4); clf
+worldmap world
+contourfm(latgrid, longrid, PCO2_mean','linecolor','none');
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('Annual Mean pCO2 (µatm)')
+
 %% 5. Calculate and plot a global map of the difference between the annual mean seawater and atmosphere pCO2
 %<--
+%reference year: 2000
+%365ppm 
+%data obtained from Full Record Graph of the Keeling Curve from scripps
+%institution of oceanography, UC San Diego --- https://scripps.ucsd.edu/programs/keelingcurve/
+%selected data source because we noticed that it was highly cited in online
+%material targeted towards general audiences
+
+refyear = 365
+difference= PCO2_mean - refyear;
+
+figure(5); clf
+worldmap world
+contourfm(latgrid, longrid, difference','linecolor','none');
+cmocean('balance', 'pivot', 0)
+colorbar
+geoshow('landareas.shp','FaceColor','black')
+title('Difference between Annual Mean pCO2 and 2000 Atmospheric pCO2 (µatm)')
+
 
 %% 6. Calculate relative roles of temperature and of biology/physics in controlling seasonal cycle
 %<--
+
 
 %% 7. Pull out and plot the seasonal cycle data from stations of interest
 %Do for BATS, Station P, and Ross Sea (note that Ross Sea is along a
