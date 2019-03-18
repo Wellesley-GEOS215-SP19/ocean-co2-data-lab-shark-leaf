@@ -114,7 +114,6 @@ c.Label.String = '\it pCO_2 [µatm]';
 geoshow('landareas.shp','FaceColor','black');
 title('Difference between Annual Mean pCO2 and 2000 Atmospheric pCO2');
 
-
 %% 6. Calculate relative roles of temperature and of biology/physics in controlling seasonal cycle
 %<--
 SST_mean = mean(SST,3); %Calculate the mean SST along the 3rd dimension (over all the months)
@@ -190,6 +189,8 @@ yyaxis right
 plot(monthgrid, SST_extracted(:,1), '-or', 'LineWidth', 1)
 ylabel('Sea Surface Temperature [^oC]')
 xlabel('Months')
+legend({'Observed pCO_2', 'Sea Surface Temperature'}, 'Location', 'northwest')
+legend('boxoff')
 
 subplot(2,1,2);
 hold on
@@ -213,6 +214,8 @@ yyaxis right
 plot(monthgrid, SST_extracted(:,2), '-or', 'LineWidth', 1)
 ylabel('Sea Surface Temperature [^oC]')
 xlabel('Months')
+legend({'Observed pCO_2', 'Sea Surface Temperature'}, 'Location', 'southeast')
+legend('boxoff')
 
 subplot(2,1,2);
 hold on
@@ -236,6 +239,8 @@ yyaxis right
 plot(monthgrid, SST_extracted(:,3), '-or', 'LineWidth', 1)
 ylabel('Sea Surface Temperature [^oC]')
 xlabel('Months')
+legend({'Observed pCO_2', 'Sea Surface Temperature'}, 'Location', 'northwest')
+legend('boxoff')
 
 subplot(2,1,2);
 hold on
