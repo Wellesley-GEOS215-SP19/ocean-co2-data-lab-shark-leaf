@@ -56,7 +56,7 @@ contourfm(latgrid, longrid, SST(:,:,1)','linecolor','none');
 c = colorbar('southoutside'); 
 c.Label.String = '\it Sea Surface Temperature [^oC]';
 geoshow('landareas.shp','FaceColor','black');
-title('January Sea Surface Temperature')
+%title('January Sea Surface Temperature')
 
 %%
 %Check that you can make a similar type of global map for another month
