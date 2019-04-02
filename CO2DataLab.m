@@ -293,7 +293,7 @@ scatterm(BATSlat, BATSlon, 50, 'om', 'filled');
 scatterm(Rosslat, Rosslon, 50, 'om', 'filled');
 scatterm(Papalat, Papalon, 50, 'om', 'filled');
 c = colorbar('southoutside');
-c.Label.String = '\it pCO_2 [µatm]';
+c.Label.String = '\it ?pCO_2 [µatm]';
 geoshow('landareas.shp','FaceColor','black');
 title('Seasonal Biophysical Drawdown of Seawater pCO_2');
 %% Reproduce Figure 8
@@ -306,9 +306,9 @@ scatterm(BATSlat, BATSlon, 50, 'om', 'filled');
 scatterm(Rosslat, Rosslon, 50, 'om', 'filled');
 scatterm(Papalat, Papalon, 50, 'om', 'filled');
 c = colorbar('southoutside');
-c.Label.String = '\it pCO_2 [µatm]';
+c.Label.String = '\it ?pCO_2 [µatm]';
 geoshow('landareas.shp','FaceColor','black');
-title('Seasonal Temperature Effect on Seawater pCO_2');
+%title('Seasonal Temperature Effect on Seawater pCO_2');
 %% Reproduce Figure 9
 TminusB = diff_T - diff_BP;
 figure(12); clf %but actually Figure 9 in Takahashi et al. (2002) lol
